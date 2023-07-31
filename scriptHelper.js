@@ -16,7 +16,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
        <img src="${imageUrl}" alt="${name} image">
     `;
 }
-// Adding Alerts
+// My Alerts
 function validateInput(testInput) {
     if (testInput === "") {
         return "Empty";
@@ -29,22 +29,16 @@ function validateInput(testInput) {
 
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
-    document.getElementById("pilotName").textContent = pilot;
-    document.getElementsByName('copilot').textContent = copilot;
-    document.getElementsByName("fuelLevel").textContent = fuelLevel;
-    document.getElementsByName("cargoMass").textContent = cargoMass;
-
+    let launchStatusEle = document.getElementById("launchStatus")
     let isValidRequest = true;
     let errMsg = [];
+    let fLevel = 0;
+    let cLevel = 0;
 
-    // if (pilot === "" || copilot === "" || fuelLevel === "" || cargoMass === "") {
-    //     alert("All fields are required");
-    //     return;
-    // }
-
-    // pilot validation
+    // pre-validation on form fields
+    // pilot validation. we will use error msg instead of alert
     if (validateInput(pilot) === "Empty") {
-        errMsg.push("Pilot name is required");
+        errMsg.push("Pilot name is required.");
         isValidRequest = false;
     }
     else if (!isNaN(pilot)){
@@ -54,7 +48,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
 
     // co pilot
     if (validateInput(copilot) === "Empty") {
-        errMsg.push("Copilot name is required");
+        errMsg.push("Copilot name is required.");
         isValidRequest = false;
     }
     else if (!isNaN(copilot)){
@@ -86,74 +80,57 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
         isValidRequest = false;
     }
 
-    if (isValidRequest){
-        fuelLevel = Number(fuelLevel);
-        cargoMass = Number(cargoMass);
-        let faultEle = document.getElementById("faultyItems");
+    // we have enough to determine if launch is good to go
+    if (isValidRequest) {
+        let isReadyForLaunch = true;
 
-        if (fuelLevel < 10000) {        
-            
+        fLevel = Number(fuelLevel);
+        cLevel = Number(cargoMass);
+        list.style.visibility = 'visible';
 
-            faultEle.style.visibility = "visible";
-            faultEle.innerHTML = `
-              <li>Fuel level is too low.</li>
-            `;
-            faultEle.focus();
-        
+        document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} ready for launch.`;
+        document.getElementById("copilotStatus").innerHTML = `Copilot ${copilot} ready for launch`;
+
+        if (fLevel < 10000) {
+            isReadyForLaunch = false;
+            document.getElementById("fuelStatus").innerHTML = 'Fuel level too low for launch.';
+        } else {
+            document.getElementById("fuelStatus").innerHTML = 'Fuel level high enough for launch.';
+        }
+    
+        if (cLevel > 10000) {
+            isReadyForLaunch = false;
+            document.getElementById("cargoStatus").innerHTML = 'Cargo mass too high for launch.';
+        } else {
+            document.getElementById("cargoStatus").innerHTML = 'Cargo mass low enough for launch.';
+        }
+
+        // we are ready for launch
+        if (isReadyForLaunch) {
+            // If the shuttle is ready to launch
+            launchStatusEle.innerHTML = "Shuttle is ready for launch";
+            launchStatusEle.style.color = "#419F6A";
+        }
+        else {
             //  "Shuttle not ready for launch" and the color to red
             document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
             document.getElementById("launchStatus").style.color = "red";
-            return;
         }
-    
-        if (cargoMass > 10000) {
-            
-            document.getElementById("faultyItems").style.visibility = "visible";
-            document.getElementById("faultyItems").innerHTML = `
-              <li>Cargo mass is too large.</li>
-            `;
-        
-            // Change the text of launchStatus to "Shuttle not ready for launch" and the color to a particular shade of red
-            document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
-            document.getElementById("launchStatus").style.color = "#C7254E";
-            return;
-        }
-
-            // If the shuttle is ready to launch
-    document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch";
-    document.getElementById("launchStatus").style.color = "#419F6A";
-    
-    // Update pilotStatus and copilotStatus 
-    document.getElementById("pilotStatus").innerHTML = `Pilot: ${pilot}`;
-    document.getElementById("copilotStatus").innerHTML = `Copilot: ${copilot}`;
     }
-    else{
-        let err = '';
+    else {
+        list.style.visibility = 'hidden';
+        launchStatusEle.innerHTML = "Awaiting Information Before Launch";
+        launchStatusEle.style.color = "#000000";
 
+        // how error message to show in alert box to user
+        let err = '';
         errMsg.forEach(item => {
             err += item + "\n";
         });
 
-        alert(err);
+        alert(err);   
     }
-    
-
-
-    // if (isNaN(fuelLevel)) {
-    //     alert("Fuel level must be a number");
-    //     return;
-    // }
-
-    // if (isNaN(cargoMass)) {
-    //     alert("Cargo mass must be a number");
-    //     return;
-    // }
-
-   
-
-
 }
-
 
 async function myFetch() {
     let planetsReturned;
@@ -168,7 +145,7 @@ function pickPlanet(planets) {
     const index = Math.floor(Math.random() * planets.length);
     return planets[index];
 }
-
+// this works with or without modules commennted? 
 // module.exports.addDestinationInfo = addDestinationInfo;
 // module.exports.validateInput = validateInput;
 // module.exports.formSubmission = formSubmission;
