@@ -22,7 +22,7 @@ function validateInput(testInput) {
         return "Empty";
     } else if (isNaN(testInput)) {
         return "Not a Number";
-    } else {
+    } else if (!isNaN(testInput)) {
         return "Is a Number";
     }
 }
@@ -34,6 +34,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
     let errMsg = [];
     let fLevel = 0;
     let cLevel = 0;
+   
 
     // pre-validation on form fields
     // pilot validation. we will use error msg instead of alert
@@ -72,7 +73,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
 
     // cargo mass
     if (validateInput(cargoMass) === "Empty"){
-        errMsg.push("Cago mass is required.");
+        errMsg.push("Cargo mass is required.");
         isValidRequest = false;
     }
     else if (validateInput(cargoMass) === "Not a Number"){
@@ -130,6 +131,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
 
         alert(err);   
     }
+    
 }
 
 async function myFetch() {
