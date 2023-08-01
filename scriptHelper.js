@@ -91,6 +91,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
 
         document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} ready for launch.`;
         document.getElementById("copilotStatus").innerHTML = `Copilot ${copilot} ready for launch`;
+        
 
         if (fLevel < 10000) {
             isReadyForLaunch = false;
@@ -103,19 +104,19 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
             isReadyForLaunch = false;
             document.getElementById("cargoStatus").innerHTML = 'Cargo mass too high for launch.';
         } else {
-            document.getElementById("cargoStatus").innerHTML = 'Cargo mass low enough for launch.';
+            document.getElementById("cargoStatus").innerHTML = 'Cargo mass low enough for launch';
         }
 
         // we are ready for launch
         if (isReadyForLaunch) {
             // If the shuttle is ready to launch
-            launchStatusEle.innerHTML = "Shuttle is ready for launch";
+            launchStatusEle.innerHTML = "Shuttle is Ready for Launch";
             launchStatusEle.style.color = "#419F6A";
         }
         else {
             //  "Shuttle not ready for launch" and the color to red
-            document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
-            document.getElementById("launchStatus").style.color = "red";
+            document.getElementById("launchStatus").innerHTML = "Shuttle Not Ready for Launch";
+            document.getElementById("launchStatus").style.color = "rgb(199, 37, 78)";
         }
     }
     else {
@@ -131,7 +132,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
 
         alert(err);   
     }
-    
+    document.getElementById("pilotStatus").scrollIntoView();
 }
 
 async function myFetch() {
