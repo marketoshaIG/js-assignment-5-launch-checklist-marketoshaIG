@@ -125,7 +125,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
         launchStatusEle.style.color = "#000000";
 
         // how error message to show in alert box to user
-        let err = 'hidden';
+        let err = '';
         errMsg.forEach(item => {
             err += item + "\n";
         });
