@@ -89,20 +89,20 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
         cLevel = Number(cargoMass);
         list.style.visibility = 'visible';
 
-        document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} ready for launch.`;
+        document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} ready for launch`;
         document.getElementById("copilotStatus").innerHTML = `Copilot ${copilot} ready for launch`;
         
 
         if (fLevel < 10000) {
             isReadyForLaunch = false;
-            document.getElementById("fuelStatus").innerHTML = 'Fuel level too low for launch.';
+            document.getElementById("fuelStatus").innerHTML = 'Fuel level too low for launch';
         } else {
-            document.getElementById("fuelStatus").innerHTML = 'Fuel level high enough for launch.';
+            document.getElementById("fuelStatus").innerHTML = 'Fuel level high enough for launch';
         }
     
         if (cLevel > 10000) {
             isReadyForLaunch = false;
-            document.getElementById("cargoStatus").innerHTML = 'Cargo mass too high for launch.';
+            document.getElementById("cargoStatus").innerHTML = 'Cargo mass too heavy for launch';
         } else {
             document.getElementById("cargoStatus").innerHTML = 'Cargo mass low enough for launch';
         }
