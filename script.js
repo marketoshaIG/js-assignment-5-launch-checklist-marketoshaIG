@@ -1,6 +1,6 @@
 // Write your JavaScript code here!
 
-//const { myFetch } = require("./scriptHelper");
+const { myFetch } = require("./scriptHelper");
 
 window.addEventListener("load", function() {
     let form = document.querySelector("form");

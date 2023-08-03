@@ -13,7 +13,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
           <li>Distance from Earth: ${distance}</li>
           <li>Number of Moons: ${moons}</li>
        </ol>
-       <img src="${imageUrl}" alt="${name} image">
+       <img src="${imageUrl}">
     `;
 }
 // My Alerts
@@ -125,7 +125,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
         launchStatusEle.style.color = "#000000";
 
         // how error message to show in alert box to user
-        let err = '';
+        let err = 'hidden';
         errMsg.forEach(item => {
             err += item + "\n";
         });
