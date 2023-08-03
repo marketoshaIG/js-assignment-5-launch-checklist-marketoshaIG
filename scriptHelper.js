@@ -89,8 +89,8 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
         cLevel = Number(cargoMass);
         list.style.visibility = 'visible';
 
-        document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} ready for launch`;
-        document.getElementById("copilotStatus").innerHTML = `Copilot ${copilot} ready for launch`;
+        document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
+        document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
         
 
         if (fLevel < 10000) {
